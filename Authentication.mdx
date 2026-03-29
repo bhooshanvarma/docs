@@ -1,0 +1,80 @@
+---
+title: "Authentication"
+description: "How Layer3x authenticates your agents"
+---
+
+## API Key Authentication
+
+Every agent registered in Layer3x has a unique API key. 
+
+Include it in every request as a header:
+
+\`\`\`bash
+
+X-Agent-API-Key: agk\_your\_key\_here
+
+\`\`\`
+
+API keys are:
+
+- Generated once at agent creation
+
+- Shown only once — store them immediately
+
+- Rotatable at any time from the Agents page
+
+- Scoped to a single agent and tenant — keys cannot access other agents
+
+## HMAC Request Signing (optional)
+
+For higher security requirements, Layer3x supports 
+
+HMAC-SHA256 request signing per agent — the same pattern 
+
+used by Stripe and Plaid for webhook verification.
+
+When HMAC signing is enabled for an agent, every request 
+
+must include a signature header:
+
+\`\`\`bash
+
+X-Layer3-Signature: sha256=\<hex\_signature\>
+
+\`\`\`
+
+The signature is computed as:
+
+\`\`\`javascript
+
+const signature = crypto
+
+  .createHmac('sha256', YOUR\_HMAC\_SECRET)
+
+  .update(JSON.stringify(requestBody))
+
+  .digest('hex')
+
+\`\`\`
+
+\<Note\>
+
+  HMAC signing is opt-in per agent. Agents without an HMAC 
+
+  secret configured authenticate with their API key only.
+
+\</Note\>
+
+## Key Rotation
+
+Rotate your agent's API key from the Agents page:
+
+1. Go to **Agents** → click **···** on the agent row
+
+2. Click **Rotate API Key**
+
+3. Copy the new key immediately — the old key is invalidated
+
+After rotation, update any systems using the old key before 
+
+the rotation is complete.
