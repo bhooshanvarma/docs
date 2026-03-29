@@ -1,97 +1,70 @@
 ---
 title: "Introduction"
-description: "Welcome to the new home for your documentation"
+description: "Layer3x — The Execution Firewall for AI-Driven Payments"
 ---
 
-## Setting up
+### Layer3x is a runtime execution authorization platform for AI agents operating in financial and payment workflows.
 
-Get your documentation site up and running in minutes.
+### Before any AI-generated payment executes, it passes through Layer3x. 
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+#### The response is one of three deterministic signals:
 
-## Make it yours
+\<CardGroup cols={3}\>
 
-Design a docs site that looks great and empowers your users.
+  \<Card title="🟢 GO" color="#16a34a"\>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+    Policy validated. Action authorized. Execute.
 
-## Create beautiful pages
+  \</Card\>
 
-Everything you need to create world-class documentation.
+  \<Card title="🔴 NO-GO" color="#dc2626"\>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+    Blocked by policy. Reason logged. Webhook fired.
 
-## Need inspiration?
+  \</Card\>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+  \<Card title="🟡 EXCEPTION" color="#d97706"\>
+
+    Anomaly detected. Transaction frozen pending review.
+
+  \</Card\>
+
+\</CardGroup\>
+
+## What Layer3x is not
+
+- **Not an IAM tool** — IAM grants access to systems. 
+
+  Layer3x governs whether a specific AI-generated action 
+
+  should execute right now.
+
+- **Not a workflow tool** — workflow tools orchestrate sequences. 
+
+  Layer3x intercepts at the execution boundary.
+
+- **Not an AI monitoring tool** — monitoring observes after the fact. 
+
+  Layer3x blocks before execution.
+
+## How it connects
+
+Layer3x works with any agent framework via REST API, 
+
+and connects natively to Claude as an MCP server in 60 seconds.
+
+\<CardGroup cols={2}\>
+
+  \<Card title="MCP Setup" icon="plug" href="/integration/mcp-setup"\>
+
+    Connect to Claude in 60 seconds — no SDK required.
+
+  \</Card\>
+
+  \<Card title="REST API" icon="code" href="/integration/rest-api"\>
+
+    Works with LangChain, Make, n8n, or any custom agent.
+
+  \</Card\>
+
+\</CardGroup\>
