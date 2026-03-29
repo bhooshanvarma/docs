@@ -1,0 +1,117 @@
+---
+title: "Policy Types "
+---
+
+Policies are evaluated in priority order — lowest number first. 
+
+The first policy that matches a request determines the outcome.
+
+## Auto Approve
+
+Automatically approve requests that meet all conditions.
+
+**Config fields:**
+
+- `max_amount` — approve requests at or below this amount
+
+- `allowed_action_keys` — which actions this applies to (empty = all)
+
+- `allowed_vendors` — approved vendors (empty = all)
+
+**Returns:** GO
+
+## Approval Required
+
+Escalate requests to human review.
+
+**Config fields:**
+
+- `min_amount` — escalate requests at or above this amount
+
+- `action_keys` — which actions trigger escalation (empty = all)
+
+- `specific_vendors` — escalate for specific vendors only (empty = all)
+
+**Returns:** ESCALATED
+
+## Block
+
+Hard deny — no human override.
+
+**Config fields:**
+
+- `blocked_vendors` — vendor names to always deny
+
+- `blocked_action_keys` — action keys to always deny
+
+**Returns:** NO-GO
+
+## Rate Limit
+
+Limit the number of requests an agent can make in a time window.
+
+**Config fields:**
+
+- `max_requests` — maximum number of requests allowed
+
+- `per_window` — `per_minute`, `per_hour`, or `per_day`
+
+- `action_keys` — which actions to count (empty = all)
+
+**Returns:** NO-GO when limit exceeded
+
+## Time Window
+
+Restrict actions to specific days and hours.
+
+**Config fields:**
+
+- `allowed_days` — Mon, Tue, Wed, Thu, Fri, Sat, Sun
+
+- `start_time` — e.g. `09:00`
+
+- `end_time` — e.g. `17:00`
+
+- `timezone` — e.g. `America/New_York`
+
+- `outside_window_action` — `deny` or `escalate`
+
+**Returns:** NO-GO or ESCALATED outside the window
+
+## Re-Authentication Required
+
+Require step-up verification for high-value actions.
+
+**Config fields:**
+
+- `trigger_above_amount` — trigger reauth above this amount
+
+- `action_keys` — which actions require reauth (empty = all)
+
+- `token_ttl_seconds` — how long the reauth token is valid (default 300)
+
+**Returns:** REAUTH\_REQUIRED with a short-lived challenge token
+
+---
+
+## Evaluation order
+
+Policies always evaluate in this fixed order regardless of priority:
+
+1. Rate Limit
+
+2. Time Window
+
+3. Block
+
+4. Re-Authentication Required
+
+5. Auto Approve
+
+6. Approval Required
+
+7. Fail-safe escalation (if nothing matches)
+
+Within each type, policies evaluate by priority number — 
+
+lowest first.
