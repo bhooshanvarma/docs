@@ -46,21 +46,17 @@ When your agent attempts a payment action, Claude calls Layer3x automatically be
 
 ---
 
-## Tool parameters
+## ## Tool parameters
 
-| Parameter | Type | Required | Description |
+**action\_key** (string, required) — The action being requested. Example: `payments.release`
 
-|---|---|---|---|
+**amount** (number, required) — Payment amount in USD.
 
-| action\_key | string | Yes | e.g. `payments.release` |
+**vendor** (string, required) — Destination vendor name.
 
-| amount | number | Yes | Payment amount |
+**currency** (string, optional) — Currency code. Default: USD.
 
-| vendor | string | Yes | Destination vendor name |
-
-| currency | string | No | Default: USD |
-
-| payload | object | No | Additional context |
+**payload** (object, optional) — Additional context for the request.
 
 ---
 
