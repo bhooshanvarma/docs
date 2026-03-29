@@ -1,9 +1,6 @@
 ---
-
 title: "MCP Setup"
-
 description: "Connect Layer3x to Claude in 60 seconds"
-
 ---
 
 Layer3x is the only MCP-native execution firewall for Claude agents.
@@ -23,7 +20,6 @@ Click the **\+** button in the top right of the Connectors panel
 **Step 3 — Enter your details**
 
 - **Name:** Layer3x
-
 - **URL:** `https://api.layer3x.com/mcp?apikey=YOUR_AGENT_API_KEY`
 
 Replace `YOUR_AGENT_API_KEY` with the key from your Agents page.
@@ -42,15 +38,11 @@ When your agent attempts a payment action, Claude calls Layer3x automatically be
 
 **Example:**
 
-\> User: "Release the \$6,200 payment to TechVendor Inc"
+**User:** "Release the \$6,200 payment to TechVendor Inc"
 
-\>
+**Claude calls** `authorize_payment` → Layer3x evaluates → Returns ESCALATED
 
-\> Claude calls `authorize_payment` → Layer3x evaluates policies → Returns ESCALATED
-
-\>
-
-\> Claude: "This payment requires human approval. A request has been logged in your Layer3x dashboard."
+**Claude responds:** "This payment requires human approval. A request has been logged in your Layer3x dashboard."
 
 ---
 
