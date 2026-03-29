@@ -1,11 +1,13 @@
-Layer3x sends HMAC-signed webhook notifications to your systems 
-when payment events occur — so your ops team gets alerted in real time, 
-not after a manual dashboard check.
+---
+title: "Webhooks"
+---
+
+Layer3x sends HMAC-signed webhook notifications to your systems when payment events occur — so your ops team gets alerted in real time, not after a manual dashboard check.
 
 ## Events
 
 | Event | Trigger |
-|---|---|
+| --- | --- |
 | `payment.blocked` | Agent payment denied by policy |
 | `payment.escalated` | Payment requires human approval |
 | `payment.reauth_required` | Step-up authentication triggered |
@@ -20,6 +22,7 @@ not after a manual dashboard check.
 5. Copy the signing secret shown — it is displayed only once
 
 ## Payload format
+
 ```json
 {
   "event_type": "payment.escalated",
@@ -42,8 +45,8 @@ not after a manual dashboard check.
 
 ## Verify signatures
 
-Every webhook payload is signed with HMAC-SHA256. 
-Always verify the signature before processing:
+Every webhook payload is signed with HMAC-SHA256. Always verify the signature before processing:
+
 ```javascript
 const crypto = require('crypto')
 
@@ -75,19 +78,15 @@ if (!isValid) {
 
 ## Retry logic
 
-If your endpoint returns a non-2xx response, Layer3x retries 
-automatically with exponential backoff:
+If your endpoint returns a non-2xx response, Layer3x retries automatically with exponential backoff:
 
 - Attempt 1: immediately
 - Attempt 2: after 5 seconds
 - Attempt 3: after 25 seconds
 - Attempt 4: after 125 seconds
 
-After 4 failed attempts the delivery is marked as failed 
-and logged in your webhook delivery log.
+After 4 failed attempts the delivery is marked as failed and logged in your webhook delivery log.
 
 ## Target integrations
 
-Layer3x webhooks work with any REST endpoint. 
-Common integrations: Slack, PagerDuty, Microsoft Teams, 
-custom REST endpoints.
+Layer3x webhooks work with any REST endpoint. Common integrations: Slack, PagerDuty, Microsoft Teams, custom REST endpoints.
