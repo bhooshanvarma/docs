@@ -1,43 +1,40 @@
 ---
+
 title: "Introduction"
+
 description: "Layer3x — The Execution Firewall for AI-Driven Payments"
+
 ---
 
-### Layer3x is a runtime execution authorization platform for AI agents operating in financial and payment workflows.
+Layer3x is a runtime execution authorization platform for AI agents 
 
-### Before any AI-generated payment executes, it passes through Layer3x. 
+operating in financial and payment workflows.
 
-#### The response is one of three deterministic signals:
+Before any AI-generated payment executes, it passes through Layer3x. 
 
-\<CardGroup cols={3}\>
+The response is one of three deterministic signals:
 
-  \<Card title="🟢 GO" color="#16a34a"\>
+## 🟢 GO
 
-    Policy validated. Action authorized. Execute.
+Policy validated. Action authorized. Proceed with execution.
 
-  \</Card\>
+## 🔴 NO-GO
 
-  \<Card title="🔴 NO-GO" color="#dc2626"\>
+Blocked by policy. Reason logged. Webhook fired to your systems.
 
-    Blocked by policy. Reason logged. Webhook fired.
+## 🟡 EXCEPTION
 
-  \</Card\>
+Anomaly detected — hash mismatch or silent timeout. 
 
-  \<Card title="🟡 EXCEPTION" color="#d97706"\>
+Transaction frozen pending reconciliation.
 
-    Anomaly detected. Transaction frozen pending review.
-
-  \</Card\>
-
-\</CardGroup\>
+---
 
 ## What Layer3x is not
 
-- **Not an IAM tool** — IAM grants access to systems. 
+- **Not an IAM tool** — IAM grants access to systems. Layer3x governs 
 
-  Layer3x governs whether a specific AI-generated action 
-
-  should execute right now.
+  whether a specific AI-generated action should execute right now.
 
 - **Not a workflow tool** — workflow tools orchestrate sequences. 
 
@@ -47,24 +44,16 @@ description: "Layer3x — The Execution Firewall for AI-Driven Payments"
 
   Layer3x blocks before execution.
 
+---
+
 ## How it connects
 
-Layer3x works with any agent framework via REST API, 
+**Claude MCP** — Connect as a native tool in 60 seconds. 
 
-and connects natively to Claude as an MCP server in 60 seconds.
+One URL in your Claude connector settings. No SDK required.
 
-\<CardGroup cols={2}\>
+→ See \[MCP Setup\](/integration/mcp-setup)
 
-  \<Card title="MCP Setup" icon="plug" href="/integration/mcp-setup"\>
+**REST API** — Works with LangChain, Make, n8n, or any custom agent.
 
-    Connect to Claude in 60 seconds — no SDK required.
-
-  \</Card\>
-
-  \<Card title="REST API" icon="code" href="/integration/rest-api"\>
-
-    Works with LangChain, Make, n8n, or any custom agent.
-
-  \</Card\>
-
-\</CardGroup\>
+→ See \[REST API\](/integration/rest-api)
