@@ -1,4 +1,95 @@
 ---
-title: 'untitled-page'
+title: "MCP Setup"
 ---
 
+Connect Layer3x to Claude in 60 seconds
+
+Layer3x is the only MCP-native execution firewall for Claude agents. 
+
+Connect it as a native tool — no SDK, no integration code required.
+
+## Connect to [Claude.ai](http://Claude.ai)
+
+\<Steps\>
+
+  \<Step title="Open Claude Settings"\>
+
+    Go to \[[claude.ai](http://claude.ai)\]([https://claude.ai](https://claude.ai)) → Settings → Connectors
+
+  \</Step\>
+
+  \<Step title="Add custom connector"\>
+
+    Click the **\+** button in the top right of the Connectors panel
+
+  \</Step\>
+
+  \<Step title="Enter your details"\>
+
+    - **Name:** Layer3x
+
+    - **URL:** `https://api.layer3x.com/mcp?apikey=YOUR_AGENT_API_KEY`
+
+    
+
+    Replace `YOUR_AGENT_API_KEY` with the key from your Agents page
+
+  \</Step\>
+
+  \<Step title="Click Add"\>
+
+    Claude will handshake with Layer3x and discover the 
+
+    `authorize_payment` tool automatically
+
+  \</Step\>
+
+\</Steps\>
+
+## What Claude can now do
+
+Once connected, Claude has access to the `authorize_payment` tool. 
+
+When your agent attempts a payment action, Claude calls Layer3x 
+
+automatically before executing.
+
+**Example conversation:**
+
+\> User: "Release the \$6,200 payment to TechVendor Inc"
+
+\>
+
+\> Claude calls `authorize_payment` →
+
+\> Layer3x evaluates against your policies →
+
+\> Returns ESCALATED — Approval required by policy →
+
+\> Claude: "This payment requires human approval before it can be released. 
+
+\> A request has been logged in your Layer3x dashboard."
+
+## Tool parameters
+
+The `authorize_payment` tool accepts:
+
+| Parameter | Type | Required | Description |
+
+|---|---|---|---|
+
+| action\_key | string | Yes | e.g. `payments.release` |
+
+| amount | number | Yes | Payment amount in USD |
+
+| vendor | string | Yes | Destination vendor name |
+
+| currency | string | No | Default: USD |
+
+| payload | object | No | Additional context |
+
+## Get your Agent API Key
+
+Go to **Agents** → Register Agent or rotate an existing key. 
+
+Get your API key from the Agents page and append it to the MCP URL.

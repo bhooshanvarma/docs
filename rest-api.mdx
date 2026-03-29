@@ -1,0 +1,137 @@
+## Base URL
+```
+https://api.layer3x.com/v1
+```
+
+## Authorize endpoint
+```
+POST /authorize
+```
+
+### Headers
+
+| Header | Required | Description |
+|---|---|---|
+| `Content-Type` | Yes | `application/json` |
+| `X-Agent-API-Key` | Yes | Your agent's API key |
+| `X-Layer3-Signature` | No | HMAC-SHA256 signature (if enabled) |
+
+### Request body
+```json
+{
+  "action_key": "payments.release",
+  "payload": {
+    "amount": 5000,
+    "currency": "USD",
+    "vendor": "Acme Corp",
+    "description": "Invoice #1042"
+  }
+}
+```
+
+### Response
+```json
+{
+  "request_id": "uuid",
+  "decision": "ALLOW | DENY | ESCALATE | REAUTH_REQUIRED",
+  "reason": "Human-readable reason",
+  "matched_policy": "Policy name that matched",
+  "risk_score": 0,
+  "status": "auto_approved | pending | rejected",
+  "message": "Action message",
+  "expires_at": "ISO timestamp"
+}
+```
+
+### Decision values
+
+| Decision | Signal | Meaning |
+|---|---|---|
+| `ALLOW` | 🟢 GO | Execute — policy validated |
+| `DENY` | 🔴 NO-GO | Blocked — do not execute |
+| `ESCALATE` | ⚪ ESCALATED | Human approval required |
+| `REAUTH_REQUIRED` | 🟡 EXCEPTION | Step-up auth required |
+
+### Error codes
+
+| Status | Meaning |
+|---|---|
+| 200 | Request processed |
+| 400 | Invalid request format |
+| 401 | Invalid or missing API key |
+| 403 | Agent disabled or revoked |
+| 429 | Rate limit exceeded |
+| 500 | Internal server error |
+
+## Code examples
+
+<CodeGroup>
+```javascript Node.js
+const response = await fetch('https://api.layer3x.com/v1/authorize', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Agent-API-Key': process.env.LAYER3X_API_KEY
+  },
+  body: JSON.stringify({
+    action_key: 'payments.release',
+    payload: {
+      amount: 5000,
+      vendor: 'Acme Corp',
+      currency: 'USD'
+    }
+  })
+})
+
+const { decision, reason, request_id } = await response.json()
+
+if (decision === 'ALLOW') {
+  // proceed with payment execution
+} else if (decision === 'ESCALATE') {
+  // notify human approver, pause execution
+} else {
+  // blocked — log and stop
+}
+```
+```python Python
+import requests
+
+response = requests.post(
+    'https://api.layer3x.com/v1/authorize',
+    headers={
+        'Content-Type': 'application/json',
+        'X-Agent-API-Key': os.environ['LAYER3X_API_KEY']
+    },
+    json={
+        'action_key': 'payments.release',
+        'payload': {
+            'amount': 5000,
+            'vendor': 'Acme Corp',
+            'currency': 'USD'
+        }
+    }
+)
+
+data = response.json()
+
+if data['decision'] == 'ALLOW':
+    # proceed
+    pass
+elif data['decision'] == 'ESCALATE':
+    # human review required
+    pass
+```
+```bash cURL
+curl -X POST https://api.layer3x.com/v1/authorize \
+  -H "Content-Type: application/json" \
+  -H "X-Agent-API-Key: YOUR_API_KEY" \
+  -d '{
+    "action_key": "payments.release",
+    "payload": {
+      "amount": 5000,
+      "vendor": "Acme Corp",
+      "currency": "USD"
+    }
+  }'
+```
+</CodeGroup>

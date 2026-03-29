@@ -3,13 +3,13 @@ title: "Quickstart"
 description: "Make your first authorization call in under 5 minutes"
 ---
 
-Step 1 — Apply for access
+## Step 1 — Apply for access
 
-Go to [layer3x.com](https://layer3x.com) and click **Apply for Access**. 
+Go to \[[layer3x.com](http://layer3x.com)\]([https://layer3x.com](https://layer3x.com)) and click **Apply for Access**. 
 
 We'll review your application and send you access within 24 hours.
 
-Step 2 — Register your agent
+## Step 2 — Register your agent
 
 Once inside the platform:
 
@@ -19,53 +19,86 @@ Once inside the platform:
 
 3. Copy the API key shown — it is displayed only once
 
-<Warning>
+\<Warning\>
+
   Store your API key securely. It cannot be retrieved after 
+
   creation — only rotated.
-</Warning>
 
-Step 3 — Make your first authorization call
+\</Warning\>
 
-```bash
-curl -X POST https://api.layer3x.com/v1/authorize \
-  -H "Content-Type: application/json" \
-  -H "X-Agent-API-Key: YOUR_AGENT_API_KEY" \
+## Step 3 — Make your first authorization call
+
+\`\`\`bash
+
+curl -X POST [https://api.layer3x.com/v1/authorize](https://api.layer3x.com/v1/authorize) \\
+
+  -H "Content-Type: application/json" \\
+
+  -H "X-Agent-API-Key: YOUR\_AGENT\_API\_KEY" \\
+
   -d '{
-    "action_key": "payments.release",
+
+    "action\_key": "payments.release",
+
     "payload": {
+
       "amount": 200,
+
       "vendor": "Acme Corp",
+
       "currency": "USD"
+
     }
+
   }'
-```
 
-Step 4 — Read the response
+\`\`\`
 
-```json
+## Step 4 — Read the response
+
+\`\`\`json
+
 {
-  "request_id": "3a1b2c3d-...",
+
+  "request\_id": "3a1b2c3d-...",
+
   "decision": "ALLOW",
+
   "reason": "Auto-approved by policy",
-  "matched_policy": "Auto-approve small payments",
-  "risk_score": 32,
-  "status": "auto_approved",
+
+  "matched\_policy": "Auto-approve small payments",
+
+  "risk\_score": 32,
+
+  "status": "auto\_approved",
+
   "message": "Action authorized — proceed with execution",
-  "expires_at": "2026-03-29T00:00:00Z"
+
+  "expires\_at": "2026-03-29T00:00:00Z"
+
 }
-```
+
+\`\`\`
 
 A `decision` of `ALLOW` means GO — your agent can proceed. 
+
 `ESCALATE` means a human approver must review before execution. 
+
 `DENY` means the action is blocked.
 
-Step 5 — Check your dashboard
+## Step 5 — Check your dashboard
 
 Go to **Requests** in your Layer3x dashboard. 
+
 You'll see your authorization request logged with the full 
+
 decision trail — policy matched, risk score, timestamp, and agent identity.
 
-<Check>
+\<Check\>
+
   You've made your first authorized payment request. 
+
   Every request from this point is governed, logged, and auditable.
-</Check>
+
+\</Check\>
