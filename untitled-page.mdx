@@ -1,80 +1,60 @@
 ---
+
 title: "MCP Setup"
+
+description: "Connect Layer3x to Claude in 60 seconds"
+
 ---
 
-"Connect Layer3x to Claude in 60 seconds"
-
----
-
-Layer3x is the only MCP-native execution firewall for Claude agents. 
+Layer3x is the only MCP-native execution firewall for Claude agents.
 
 Connect it as a native tool — no SDK, no integration code required.
 
 ## Connect to [Claude.ai](http://Claude.ai)
 
-\<Steps\>
+**Step 1 — Open Claude Settings**
 
-  \<Step title="Open Claude Settings"\>
+Go to \[[claude.ai](http://claude.ai)\]([https://claude.ai](https://claude.ai)) → Settings → Connectors
 
-    Go to \[[claude.ai](http://claude.ai)\]([https://claude.ai](https://claude.ai)) → Settings → Connectors
+**Step 2 — Add custom connector**
 
-  \</Step\>
+Click the **\+** button in the top right of the Connectors panel
 
-  \<Step title="Add custom connector"\>
+**Step 3 — Enter your details**
 
-    Click the **\+** button in the top right of the Connectors panel
+- **Name:** Layer3x
 
-  \</Step\>
+- **URL:** `https://api.layer3x.com/mcp?apikey=YOUR_AGENT_API_KEY`
 
-  \<Step title="Enter your details"\>
+Replace `YOUR_AGENT_API_KEY` with the key from your Agents page.
 
-    - **Name:** Layer3x
+**Step 4 — Click Add**
 
-    - **URL:** `https://api.layer3x.com/mcp?apikey=YOUR_AGENT_API_KEY`
+Claude will handshake with Layer3x and discover the `authorize_payment` tool automatically.
 
-    
-
-    Replace `YOUR_AGENT_API_KEY` with the key from your Agents page
-
-  \</Step\>
-
-  \<Step title="Click Add"\>
-
-    Claude will handshake with Layer3x and discover the 
-
-    `authorize_payment` tool automatically
-
-  \</Step\>
-
-\</Steps\>
+---
 
 ## What Claude can now do
 
-Once connected, Claude has access to the `authorize_payment` tool. 
+Once connected, Claude has access to the `authorize_payment` tool.
 
-When your agent attempts a payment action, Claude calls Layer3x 
+When your agent attempts a payment action, Claude calls Layer3x automatically before executing.
 
-automatically before executing.
-
-**Example conversation:**
+**Example:**
 
 \> User: "Release the \$6,200 payment to TechVendor Inc"
 
 \>
 
-\> Claude calls `authorize_payment` →
+\> Claude calls `authorize_payment` → Layer3x evaluates policies → Returns ESCALATED
 
-\> Layer3x evaluates against your policies →
+\>
 
-\> Returns ESCALATED — Approval required by policy →
+\> Claude: "This payment requires human approval. A request has been logged in your Layer3x dashboard."
 
-\> Claude: "This payment requires human approval before it can be released. 
-
-\> A request has been logged in your Layer3x dashboard."
+---
 
 ## Tool parameters
-
-The `authorize_payment` tool accepts:
 
 | Parameter | Type | Required | Description |
 
@@ -82,7 +62,7 @@ The `authorize_payment` tool accepts:
 
 | action\_key | string | Yes | e.g. `payments.release` |
 
-| amount | number | Yes | Payment amount in USD |
+| amount | number | Yes | Payment amount |
 
 | vendor | string | Yes | Destination vendor name |
 
@@ -90,8 +70,10 @@ The `authorize_payment` tool accepts:
 
 | payload | object | No | Additional context |
 
+---
+
 ## Get your Agent API Key
 
-Go to **Agents** → Register Agent or rotate an existing key. 
+Go to **Agents** → Register Agent or rotate an existing key from the Agents page.
 
-Get your API key from the Agents page and append it to the MCP URL.
+---
